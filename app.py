@@ -6,6 +6,7 @@ from flask import request
 from werkzeug.datastructures import ContentSecurityPolicy
 import os
 from dotenv import load_dotenv
+from werkzeug.utils import redirect
 load_dotenv()
 
 app=Flask(__name__)
@@ -25,14 +26,21 @@ config = {
 def index():
     if request.method=='POST':
         print(request.form['searchpodcast'])
+        index = podcastindex.init(config)
+        results=index.search(request.form['searchpodcast'],clean=True)
+        if results!=None:
+            feed_id=results['feeds'][0]['id']
+            return redirect("/podcast/"+str(feed_id))
+
+
 
 
     return render_template('index.html')
 
-@app.route('/podcast/<id>',methods=['GET','POST'])
-def podcast(id):
+@app.route('/podcast/<feed_id>',methods=['GET','POST'])
+def podcast(feed_id):
     index = podcastindex.init(config)
-    results = index.episodesByFeedId(522613)['items']
+    results = index.episodesByFeedId(feed_id)['items']
     arr=[]
     for item in results:
         arr.append(item['enclosureUrl'])
