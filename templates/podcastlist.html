@@ -1,7 +1,10 @@
 <html>
     <body>
+        <h1>{{name}}</h1>
+        <p>{{description}}</p>
         {% for item in list %}
-        <audio src={{item}} preload controls></audio><br><br>
+        <h3>{{item["title"]}}</h3>
+        <audio src={{item["enclosureUrl"]}} preload controls></audio><br><br><hr>
         {% endfor %}
     </body>
 </html>

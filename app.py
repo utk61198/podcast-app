@@ -41,9 +41,11 @@ def index():
 def podcast(feed_id):
     index = podcastindex.init(config)
     results = index.episodesByFeedId(feed_id)['items']
+    podcast_name = index.podcastByFeedId(feed_id)["feed"]["title"]
+    podcast_description=index.podcastByFeedId(feed_id)["feed"]["description"]
     arr=[]
     for item in results:
-        arr.append(item['enclosureUrl'])
-    return render_template('podcastlist.html',list=arr)
+        arr.append(item)
+    return render_template('podcastlist.html',list=arr,name=podcast_name,description=podcast_description)
 
 
