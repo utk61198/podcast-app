@@ -1,3 +1,4 @@
+from email.mime import image
 from flask import Flask
 from flask.templating import render_template
 from flaskext.markdown import Markdown
@@ -45,10 +46,12 @@ def podcast(feed_id):
     index = podcastindex.init(config)
     results = index.episodesByFeedId(feed_id,max_results=100)['items']
     podcast_name = index.podcastByFeedId(feed_id)["feed"]["title"]
+    print(index.podcastByFeedId(feed_id))
     podcast_description=index.podcastByFeedId(feed_id)["feed"]["description"]
+    podcast_cover_image=index.podcastByFeedId(feed_id)["feed"]["image"]
     arr=[]
     for item in results:
         arr.append(item)
-    return render_template('podcastlist.html',list=arr,name=podcast_name,description=podcast_description)
+    return render_template('podcastlist.html',list=arr,name=podcast_name,description=podcast_description,image=podcast_cover_image)
 
 
