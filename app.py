@@ -40,7 +40,7 @@ def index():
                     'feedid':fid
                 }
                 arr.append(podcast_obj)
-                return render_template('index.html',searchresults=arr)
+            return render_template('index.html',searchresults=arr)
 
 
 
