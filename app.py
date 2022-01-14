@@ -18,10 +18,6 @@ config = {
     "api_secret": os.environ.get('SECRET')
 }
 
-# result = index.search("Tim Dillon Show",clean=True)["feeds"][0]['url']
-# episodes=index.episodesByFeedUrl(result)['items'][0]['enclosureUrl']
-# print(episodes)
-
 @app.route('/',methods=['GET','POST'])
 def index():
     if request.method=='POST':
@@ -41,19 +37,13 @@ def index():
                 }
                 arr.append(podcast_obj)
             return render_template('index.html',searchresults=arr)
-
-
-
-
-
-
     return render_template('index.html',searchresults=[])
 
 
 @app.route('/podcast/<feed_id>',methods=['GET','POST'])
 def podcast(feed_id):
     index = podcastindex.init(config)
-    results = index.episodesByFeedId(feed_id)['items']
+    results = index.episodesByFeedId(feed_id,max_results=100)['items']
     podcast_name = index.podcastByFeedId(feed_id)["feed"]["title"]
     podcast_description=index.podcastByFeedId(feed_id)["feed"]["description"]
     arr=[]
