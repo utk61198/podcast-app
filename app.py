@@ -13,7 +13,6 @@ load_dotenv()
 app=Flask(__name__)
 Markdown(app)
 
-
 config = {
     "api_key": os.environ.get('KEY'),
     "api_secret": os.environ.get('SECRET')
@@ -53,5 +52,3 @@ def podcast(feed_id):
     for item in results:
         arr.append(item)
     return render_template('podcastlist.html',list=arr,name=podcast_name,description=podcast_description,image=podcast_cover_image)
-
-
