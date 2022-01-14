@@ -29,13 +29,26 @@ def index():
         index = podcastindex.init(config)
         results=index.search(request.form['searchpodcast'],clean=True)
         if results!=None:
-            feed_id=results['feeds'][0]['id']
-            return redirect("/podcast/"+str(feed_id))
+            # feed_id=results['feeds'][0]['id']
+            # return redirect("/podcast/"+str(feed_id))
+            arr=[]
+            for item in results['feeds']:
+                fid="/podcast/"+str(item['id'])
+                title=item['title']
+                podcast_obj={
+                    'title':title,
+                    'feedid':fid
+                }
+                arr.append(podcast_obj)
+                return render_template('index.html',searchresults=arr)
 
 
 
 
-    return render_template('index.html')
+
+
+    return render_template('index.html',searchresults=[])
+
 
 @app.route('/podcast/<feed_id>',methods=['GET','POST'])
 def podcast(feed_id):

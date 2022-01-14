@@ -6,6 +6,10 @@
         <form method="post">
             <input type="text" placeholder="Search Podcast..." name="searchpodcast"/>
             <button type="submit">Search</button>
+            {% for item in searchresults%}
+
+            <P><a href={{item['feedid']}}>{{item['title']}}</a></P>
+            {% endfor %}
         </form>
     </body>
 </html>
