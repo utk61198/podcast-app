@@ -1,4 +1,4 @@
-# A Podcast app created using FLASK and PYTHON PODCAST INDEX api hosted on RENDER
+# A simple podcast app created using FLASK and PYTHON PODCAST INDEX api hosted on RENDER
 
 > ###  The app has the functionality to search and play the podcasts that are available on https://podcastindex.org/
 
