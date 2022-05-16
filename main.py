@@ -4,10 +4,8 @@ from flask.templating import render_template
 from flaskext.markdown import Markdown
 import podcastindex
 from flask import request
-from werkzeug.datastructures import ContentSecurityPolicy
 import os
 from dotenv import load_dotenv
-from werkzeug.utils import redirect
 load_dotenv()
 
 app=Flask(__name__)
@@ -25,8 +23,6 @@ def index():
         index = podcastindex.init(config)
         results=index.search(request.form['searchpodcast'],clean=True)
         if results!=None:
-            # feed_id=results['feeds'][0]['id']
-            # return redirect("/podcast/"+str(feed_id))
             arr=[]
             for item in results['feeds']:
                 fid="/podcast/"+str(item['id'])
@@ -50,5 +46,6 @@ def podcast(feed_id):
     podcast_cover_image=index.podcastByFeedId(feed_id)["feed"]["image"]
     arr=[]
     for item in results:
+
         arr.append(item)
     return render_template('podcastlist.html',list=arr,name=podcast_name,description=podcast_description,image=podcast_cover_image)
